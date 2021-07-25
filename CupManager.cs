@@ -1,4 +1,6 @@
-﻿namespace osu_bailancup
+﻿using System.Threading.Tasks;
+
+namespace osu_bailancup
 {
     class CupManager
     {
@@ -9,6 +11,16 @@
         {
             apiKey = settings.apiKey;
             mode = settings.mode;
+        }
+
+        public async Task AddUserAsync(string username)
+        {
+
+        }
+
+        public async Task RemoveUserAsync(string username)
+        {
+
         }
     }
 
