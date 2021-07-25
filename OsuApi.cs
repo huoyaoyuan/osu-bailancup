@@ -70,5 +70,7 @@ namespace osu_bailancup
                 _ => throw new Exception("WTF mode?")
             };
         }
+
+        public bool IsFail => rank == "F";
     }
 }

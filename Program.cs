@@ -4,8 +4,16 @@ using System.Text.Json;
 using osu_bailancup;
 
 Settings settings;
-using (var settingFile = File.OpenRead("settings.json"))
-    settings = await JsonSerializer.DeserializeAsync<Settings>(settingFile);
+try
+{
+    using (var settingFile = File.OpenRead("settings.json"))
+        settings = await JsonSerializer.DeserializeAsync<Settings>(settingFile);
+}
+catch
+{
+    Console.WriteLine("无法读取配置文件！");
+    return;
+}
 var manager = new CupManager(settings);
 
 Console.WriteLine("指令列表：");
