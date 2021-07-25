@@ -20,28 +20,38 @@ while (true)
 {
     string line = Console.ReadLine();
 
-    if (line.StartsWith("add"))
+    try
     {
+        if (line.StartsWith("add"))
+        {
+            await manager.AddPlayerAsync(line.Substring(4).Trim());
+        }
+        else if (line.StartsWith("del"))
+        {
+            manager.RemovePlayer(line.Substring(4).Trim());
+        }
+        else if (line == "ra")
+        {
 
-    }
-    else if (line.StartsWith("del"))
-    {
+        }
+        else if (line == "rc")
+        {
 
+        }
+        else if (line == "rs")
+        {
+
+        }
+        else
+        {
+            Console.WriteLine("不认识的指令");
+        }
     }
-    else if (line == "ra")
+    catch (Exception ex)
     {
-        
-    }
-    else if (line == "rc")
-    {
-        
-    }
-    else if (line == "rs")
-    {
-        
-    }
-    else
-    {
-        Console.WriteLine("不认识的指令");
+        var color = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(ex.Message);
+        Console.ForegroundColor = color;
     }
 }
