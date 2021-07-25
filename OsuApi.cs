@@ -20,7 +20,7 @@ namespace osu_bailancup
 
         private static readonly JsonSerializerOptions options = new(JsonSerializerDefaults.Web);
 
-        public static async Task<ApiUser> GetUserAsync(string username, int mode, string apiKey)
+        public static async Task<Player> GetUserAsync(string username, int mode, string apiKey)
         {
             using var response = await httpClient.PostAsJsonAsync("/get_user", new
             {
@@ -29,7 +29,7 @@ namespace osu_bailancup
                 m = mode,
                 k = apiKey
             }, options);
-            return await response.Content.ReadFromJsonAsync<ApiUser>(options);
+            return await response.Content.ReadFromJsonAsync<Player>(options);
         }
 
         public static async Task<Score[]> GetUserRecentAsync(int userId, int mode, string apiKey)
@@ -46,7 +46,7 @@ namespace osu_bailancup
         }
     }
 
-    public record ApiUser(string username, int user_id);
+    public record Player(string username, int user_id);
     public record Score(
         int beatmap_id,
         int score,
