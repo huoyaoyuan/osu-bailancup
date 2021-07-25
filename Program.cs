@@ -12,6 +12,7 @@ try
 catch
 {
     Console.WriteLine("无法读取配置文件！");
+    Console.ReadLine();
     return;
 }
 var manager = new CupManager(settings);
