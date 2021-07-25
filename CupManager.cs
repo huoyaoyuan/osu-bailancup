@@ -35,7 +35,35 @@ namespace osu_bailancup
 
             Console.WriteLine("当前选手列表：" + string.Join(",", players.Select(x => x.username)));
         }
+
+        public async Task PrintScoreAsync(WinCondition winCondition)
+        {
+            Console.WriteLine("获取数据中...");
+
+            var scores = new List<Score>();
+            foreach (var player in players)
+            {
+                try
+                {
+                    scores.Add((await OsuApi.GetUserRecentAsync(player.user_id, mode, apiKey))[0]);
+                }
+                catch
+                {
+                    Console.WriteLine($"获取{player.username}的成绩失败");
+                }
+            }
+
+            if (scores.Count == 0)
+            {
+                Console.WriteLine("无数据");
+                return;
+            }
+
+
+        }
     }
 
     record Settings(string apiKey, int mode);
+
+    enum WinCondition { Combo, Score, Acc }
 }

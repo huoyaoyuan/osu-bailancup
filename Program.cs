@@ -32,15 +32,15 @@ while (true)
         }
         else if (line == "ra")
         {
-
+            await manager.PrintScoreAsync(WinCondition.Acc);
         }
         else if (line == "rc")
         {
-
+            await manager.PrintScoreAsync(WinCondition.Combo);
         }
         else if (line == "rs")
         {
-
+            await manager.PrintScoreAsync(WinCondition.Score);
         }
         else
         {
