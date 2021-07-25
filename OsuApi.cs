@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -58,6 +59,16 @@ namespace osu_bailancup
         int countgeki,
         string rank)
     {
-
+        public double CalcAcc(int mode)
+        {
+            return mode switch
+            {
+                0 => (count50 * 50 + count100 * 100 + count300 * 300) / ((count50 + count100 + count300 + countmiss) * 300.0),
+                1 => (count100 * 50 + count300 * 100) / ((count100 + count300 + countmiss) * 100.0),
+                2 => (count50 + count100 + count300) / (double)(count50 + count100 + count300 + countmiss + countkatu + countmiss),
+                3 => (count50 * 50 + count100 * 100 + countkatu * 200 + count300 * 300 + countgeki * 300) / ((count50 + count100 + count300 + countmiss + countkatu + countgeki + countmiss) * 300.0),
+                _ => throw new Exception("WTF mode?")
+            };
+        }
     }
 }
