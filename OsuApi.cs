@@ -15,7 +15,7 @@ namespace osu_bailancup
     {
         private static readonly HttpClient httpClient = new()
         {
-            BaseAddress = new("https://osu.ppy.sh")
+            BaseAddress = new("https://osu.ppy.sh/api")
         };
 
         private static readonly JsonSerializerOptions options = new(JsonSerializerDefaults.Web);
