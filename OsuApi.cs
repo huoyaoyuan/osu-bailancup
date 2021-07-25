@@ -15,35 +15,16 @@ namespace osu_bailancup
     {
         private static readonly HttpClient httpClient = new()
         {
-            BaseAddress = new("https://osu.ppy.sh/api")
+            BaseAddress = new("https://osu.ppy.sh/api/")
         };
 
         private static readonly JsonSerializerOptions options = new(JsonSerializerDefaults.Web);
 
         public static async Task<Player> GetUserAsync(string username, int mode, string apiKey)
-        {
-            using var response = await httpClient.PostAsJsonAsync("/get_user", new
-            {
-                u = username,
-                type = "string",
-                m = mode,
-                k = apiKey
-            }, options);
-            return await response.Content.ReadFromJsonAsync<Player>(options);
-        }
+            => (await httpClient.GetFromJsonAsync<Player[]>($"get_user?u={username}&type=string&m={mode}&k={apiKey}", options))[0];
 
         public static async Task<Score[]> GetUserRecentAsync(int userId, int mode, string apiKey)
-        {
-            using var response = await httpClient.PostAsJsonAsync("/get_user_recent", new
-            {
-                u = userId,
-                type = "id",
-                m = mode,
-                limit = 1,
-                k = apiKey
-            }, options);
-            return await response.Content.ReadFromJsonAsync<Score[]>(options);
-        }
+            => await httpClient.GetFromJsonAsync<Score[]>($"get_user_recent?u={userId}&type=id&m={mode}&limit=1&k={apiKey}", options);
     }
 
     public record Player(string username, int user_id);
